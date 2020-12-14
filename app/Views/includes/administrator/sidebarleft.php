@@ -14,6 +14,17 @@
                     <!--sidebar nav start-->
                     <ul class="side-navigation">
                         <li>
+                            <h3 class="navigation-title">E-Commerce</h3>
+                        </li>
+                        <li class="menu-list"><a href=""><i class="mdi mdi-buffer"></i> <span>Products</span></a>
+                            <ul class="child-list">
+                                <li><a href="<?php echo base_url('administrator/products/categories');?>">Categories</a></li>
+                                <li><a href="<?php echo base_url('administrator/products/items');?>">Items</a></li>
+                            </ul>
+                        </li>
+
+
+                        <li>
                             <h3 class="navigation-title">Navigation</h3>
                         </li>
                         <li class="active">

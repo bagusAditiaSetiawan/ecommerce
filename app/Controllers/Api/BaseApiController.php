@@ -78,6 +78,27 @@ class BaseApiController extends ResourceController
 //    product
     public $content;
 
+    public function whereIndex()
+    {
+        if(count($this->fillSearch)){
+            foreach ($this->fillSearch as $column => $param){
+                $get = $this->request->getGet($param);
+                if($get != null){
+                    $this->model->like($column,$get);
+                }
+            }
+        }
+
+        if(count($this->fillWhere)){
+            foreach ($this->fillWhere as $column => $param){
+                $get = $this->request->getGet($param);
+                if($get != null){
+                    $this->model->where($column,$get);
+                }
+            }
+        }
+    }
+
 
     public function index()
     {
@@ -93,33 +114,22 @@ class BaseApiController extends ResourceController
                 $limit = 0;
             }
             if($gets = $this->request->getGet()){
-                if(count($this->fillSearch)){
-                    foreach ($this->fillSearch as $column => $param){
-                        $get = $this->request->getGet($param);
-                        if($get != null){
-                            $this->model->like($column,$get);
-                        }
-                    }
-                }
-
-                if(count($this->fillWhere)){
-                    foreach ($this->fillWhere as $column => $param){
-                        $get = $this->request->getGet($param);
-                        if($get != null){
-                            $this->model->where($column,$get);
-                        }
-                    }
-                }
+                $this->whereIndex($gets);
 
             }
             if(method_exists($this,'beforeIndex')){
                 $data = $this->beforeIndex();
             }
-            $data = $this->model->orderBy($this->model->table.'.id','desc')->findAll();
+            $data = $this->model->allWithPaging($page, $limit);
             if(method_exists($this,'afterIndex')){
                 $data = $this->afterIndex($data);
             }
-            return $this->sendResponseGet($this->model->allWithPaging($page, $limit));
+            $this->whereIndex();
+            $total = $this->model->findAll();
+            return $this->sendResponseGet([
+                'data'  => $data,
+                'total' => count($total),
+            ]);
         }
         return $this->sendError(['error'=>'Model not Found']);
 
@@ -278,6 +288,9 @@ class BaseApiController extends ResourceController
 
     public function sendResponseGet($data = [], $message = 'Successfully get data', $status = 200)
     {
+        $this->response->setHeader('Access-Control-Allow-Origin', '*')
+            ->setHeader('Access-Control-Allow-Headers', '*')
+            ->setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
         return $this->respond([
             'data'  => $data,
             'message'   => $message,
@@ -287,6 +300,9 @@ class BaseApiController extends ResourceController
 
     public function sendResponseInsert($data = [], $message = 'Successfully get insert', $status = 201)
     {
+        $this->response->setHeader('Access-Control-Allow-Origin', '*')
+            ->setHeader('Access-Control-Allow-Headers', '*')
+            ->setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
         return $this->respond([
             'data'  => $data,
             'message'   => $message,
@@ -296,6 +312,9 @@ class BaseApiController extends ResourceController
 
     public function sendResponseUpdate($data = [], $message = 'Successfully get update', $status = 201)
     {
+        $this->response->setHeader('Access-Control-Allow-Origin', '*')
+            ->setHeader('Access-Control-Allow-Headers', '*')
+            ->setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
         return $this->respond([
             'data'  => $data,
             'message'   => $message,
@@ -305,6 +324,9 @@ class BaseApiController extends ResourceController
 
     public function sendError($data = [], $message = 'Failed request', $status = 400)
     {
+        $this->response->setHeader('Access-Control-Allow-Origin', '*')
+            ->setHeader('Access-Control-Allow-Headers', '*')
+            ->setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
         return $this->respond([
             'data'  => $data,
             'message'   => $message,
@@ -314,6 +336,9 @@ class BaseApiController extends ResourceController
 
     public function sendResponse($data = [], $message = '',  $status = 200)
     {
+        $this->response->setHeader('Access-Control-Allow-Origin', '*')
+            ->setHeader('Access-Control-Allow-Headers', '*')
+            ->setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
         return $this->respond(array(
             'data'  => $data,
             'status'    => $status,

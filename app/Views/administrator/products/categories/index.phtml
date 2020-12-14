@@ -1,0 +1,86 @@
+<?= $this->extend('layouts/administrator.phtml') ?>
+<?= $this->section('content') ?>
+<div class="container-fluid page-content">
+    <div class="page-head">
+        <h4 class="mt-2 mb-2">Product Category</h4>
+    </div>
+    <div class="responsive-table">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12">
+                <div class="card mb-3">
+                    <div class="card-body p-3">
+                        <form class="row form-search">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="form-label">Name</label>
+                                    <input  name="name" type="text" class="form-control" onchange="search()">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <div class="header mb-3 d-flex justify-content-between">
+                            <h5 class="header-title">Product Category</h5>
+                            <button class="btn btn-info" onclick="modalShow()"><i class="fa fa-plus"></i></button>
+                        </div>
+                        <div class="table-rep-plugin">
+                            <div class="table-responsive" data-pattern="priority-columns">
+                                <table id="table-data" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th data-priority="1">Parent</th>
+                                        <th data-priority="2">Code</th>
+                                        <th data-priority="3">Name</th>
+                                        <th data-priority="4">Date Create</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>                                                  
+                                        <tr data-template="item" class="d-none">
+                                            <td><span data-post="parent"></span></td>
+                                            <td><span data-post="code"></span></td>
+                                            <td><span data-post="name"></span></td>
+                                            <td><span data-post="date_create"></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card ">
+                    <div class="card-body p-3">
+                        <form class="row form-pagging">
+                        <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Limit</label>
+                                    <input type="number" value="10" name="limit" class="form-control" onchange="search()">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Pages</label>
+                                    <select name="page" class="form-control mb-3 custom-select" onchange="search()" style="width: 100%; height:36px;">
+                                        <option value="0">1 Page</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><!--end row-->
+    </div>                                       
+</div>
+<?= $this->endSection() ?>
+<?= $this->section('js') ?>
+    <script type="text/javascript" src="<?php echo base_url('modules/administrator/products/categories/index.js');?>"></script>
+    <script>
+         $(function() {
+                $('.table-responsive').responsiveTable({
+                    addDisplayAllBtn: 'btn btn-secondary'
+                });
+            });
+    </script>
+<?= $this->endSection() ?>
