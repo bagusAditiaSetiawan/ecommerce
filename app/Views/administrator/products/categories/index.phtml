@@ -34,6 +34,7 @@
                                         <th data-priority="2">Code</th>
                                         <th data-priority="3">Name</th>
                                         <th data-priority="4">Date Create</th>
+                                        <th data-priority="5">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>                                                  
@@ -42,6 +43,10 @@
                                             <td><span data-post="code"></span></td>
                                             <td><span data-post="name"></span></td>
                                             <td><span data-post="date_create"></span></td>
+                                            <td>
+                                                <button class="btn btn-success" data-post="edit" type="button"><i class="fa fa-pencil"></i></button>
+                                                <button class="btn btn-danger" data-post="delete" type="button"><i class="fa fa-trash"></i></button>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -73,6 +78,7 @@
         </div><!--end row-->
     </div>                                       
 </div>
+<?php echo $this->include('administrator/products/categories/modal.phtml');?>
 <?= $this->endSection() ?>
 <?= $this->section('js') ?>
     <script type="text/javascript" src="<?php echo base_url('modules/administrator/products/categories/index.js');?>"></script>

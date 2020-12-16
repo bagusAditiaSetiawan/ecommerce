@@ -14,3 +14,18 @@ const  handlerSubmit = (event) => {
 
     })
 }
+
+const config = {
+    headers:{
+        Authorization:`Bearer ${localStorage.getItem('token')}`
+    }
+}
+
+const authorization = () =>{
+    axios.get(`${baseApi}/v1/users/current`,config).then(res=>{
+        if(Object.keys(res.data.data).length > 0){
+            window.location.href = baseUrl+'/administrator/dashboard';
+        }
+    })
+}
+authorization();

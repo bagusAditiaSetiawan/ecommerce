@@ -7,11 +7,11 @@
         <meta name="author" content="Mannat Themes">
         <meta name="keyword" content="">
 
-        <title>SYNTRA | Responsive Web App Kit</title>
+        <title>Sae App | <?=$title;?></title>
 
         <!-- Theme icon -->
         <link rel="shortcut icon" href="<?php echo base_url('admin');?>/assets/images/favicon.ico">
-
+        <link href="<?php echo base_url('admin');?>/assets/plugins/sweet-alert/sweetalert2.min.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url('admin');?>/assets/plugins/morris-chart/morris.css" rel="stylesheet">
         <!-- Theme Css -->
         <link  rel="stylesheet" type="text/css"  href="<?php echo base_url();?>/toastify/src/toastify.css"/>
@@ -66,6 +66,8 @@
         
      
         <!-- jQuery -->
+        
+        <script src="<?php echo base_url('admin');?>/assets/plugins/sweet-alert/sweetalert2.min.js"></script>
         <script src="<?php echo base_url('/');?>/axios/dist/axios.min.js"></script>
         <script src="<?php echo base_url();?>/toastify/src/toastify.js"></script>
         <script src="<?php echo base_url('admin');?>/assets/js/jquery-3.2.1.min.js"></script>
@@ -98,7 +100,8 @@
         <script src="<?php echo base_url('admin');?>/assets/plugins/select2/select2.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url('admin');?>/assets/pages/jquery.form-advance.init.js" type="text/javascript"></script>
         <script src="<?php echo base_url('admin');?>/assets/js/jquery.app.js"></script>
-   
+        <script src="<?php echo base_url();?>/js/auth.js"></script>
+        <script src="<?php echo base_url();?>/js/app.js"></script>        
         <?php echo $this->renderSection('js');?>
     </body>
 </html>

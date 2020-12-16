@@ -23,6 +23,7 @@ class Base extends Model
 
     public function allWithPaging($page = 0, $limit = 10)
     {
+        $this->orderBy($this->table.'.'.$this->primaryKey,'desc');
         return $this->findAll($limit, $page*$limit);
     }
 }

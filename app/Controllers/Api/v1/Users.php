@@ -6,6 +6,26 @@ class Users extends BaseApiController
 {
     protected $modelName = 'App\Models\Users';
 
+    public function current()
+    {
+        $authorization = $this->request->getHeader('Authorization');
+
+        if($authorization) {
+            $bearer = explode(' ',$authorization)[1];
+            if($bearer === 'Bearer'){
+                $token = explode(' ',$authorization)[2];
+                $modelUser = new \App\Models\Users();
+                $user = $modelUser->where('token', $token)->first();
+                if($user){
+                    $this->request->setHeader('user', $user);                    
+                    return  $this->sendResponse($user,'Access Denied');
+                }
+            }
+        }
+        $this->response->setStatusCode(400);
+        return  $this->sendResponse([],'Access Denied');
+    }
+
     public function login()
     {
         if($post = $this->request->getPost()){
