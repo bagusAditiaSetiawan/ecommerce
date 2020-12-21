@@ -346,5 +346,12 @@ class BaseApiController extends ResourceController
         ));
     }
 
+
+    public function buildSlugs($string)
+    {
+        $pathString = explode(' ', strtolower($string));
+        return implode($pathString);
+    }
+
     // ...
 }
